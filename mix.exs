@@ -48,7 +48,11 @@ defmodule Tomaszkowal.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      # nimble_publisher with its deps
+      {:nimble_publisher, "~> 0.1.2"},
+      {:makeup_elixir, ">= 0.0.0"},
+      {:makeup_erlang, ">= 0.0.0"}
     ]
   end
 

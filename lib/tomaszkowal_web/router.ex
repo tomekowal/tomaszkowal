@@ -17,7 +17,8 @@ defmodule TomaszkowalWeb.Router do
   scope "/", TomaszkowalWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", BlogController, :index
+    get "/blog/:id", BlogController, :show
   end
 
   # Other scopes may use custom stacks.
