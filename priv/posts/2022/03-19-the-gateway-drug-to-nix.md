@@ -1,16 +1,23 @@
-# The gateway drug to Nix
+%{
+  author: "Tomasz Kowal",
+  description: "How using `nix-shell --packages` solves problems with system dependencies",
+  title: "The gateway drug to Nix",
+  tags: ["nix"],
+  published: true
+}
+---
 Have you ever tried to install something and failed multiple times?
 
 I needed to generate some diagrams using [plantuml](https://plantuml.com/starting). When installing such things, I always start with apt:
 ```bash
 sudo apt-get install plantuml
 ```
-And it looked like everything was fine, but I got errors when generating the diagrams. Some unrecognized syntax. I was positive that my colleagues used the same source to create otherdiagrams I'd already seen, so I checked the version.
+And it looked like everything was fine, but I got errors when generating the diagrams. Some unrecognized syntax. I was positive that my colleagues used the same source to create other diagrams I'd already seen, so I checked the version.
 ```bash
 plantuml -version
 PlantUML version 1.2018.13 (Mon Nov 26 18:11:51 CET 2018)
 ```
-Oh! That is it. It is old! Let's grab one from the [official website](https://plantuml.com/download). There are eleven different versions to download! After some digging, I went with the MIT version.
+Oh! That is it. It is three years old! Let's grab one from the [official website](https://plantuml.com/download). There are eleven different versions to download... After some digging, I went with the MIT version.
 
 ```bash
 java -jar plantuml.jar sequenceDiagram.txt
@@ -26,7 +33,7 @@ Nix might feel complicated because it has many facades: NixOS, Nix package manag
 nix-shell -p plantuml
 ```
 
-This command opens a new shell with plantuml ready to use. The first time it runs, it will fetch all necessary dependencies and store them. The program is prepared to use when Nix finishes. This time `plantuml` is much more recent.
+This command starts a new shell with plantuml ready to use. The first time it runs, it will fetch all necessary dependencies and store them. The program is prepared to use when Nix finishes. This time `plantuml` is much more recent.
 
 ```bash
 plantuml -version                                                                                                                                                    
