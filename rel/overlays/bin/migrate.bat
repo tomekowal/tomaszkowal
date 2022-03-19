@@ -1,0 +1,1 @@
+call "%~dp0\tomaszkowal" eval Tomaszkowal.Release.migrate
