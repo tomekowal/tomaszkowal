@@ -7,7 +7,7 @@
 </p>
 
 <p>
-  Tagged as <%= Enum.join(@post.tags, ", ") %>
+  Tagged as <%= color_tags(@post.tags) %>
 </p>
 
 <%= raw @post.body %>
