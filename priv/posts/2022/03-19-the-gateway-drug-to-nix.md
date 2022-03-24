@@ -49,11 +49,11 @@ It is awesome!
 
 ## The case of Emacs
 
-I wanted to use Emacs 27.2 because it has some nice optimisations making some packages work faster. However, apt-get had only 27.1.
+I wanted to use Emacs 27.2 because it has some nice optimisations making some packages work faster. However, apt-get had only version 27.1.
 
 I've found [an article that recommends custom PPA or flatpak to install 27.2](https://ubuntuhandbook.org/index.php/2021/03/gnu-emacs-27-2-released/). I tried PPA first, and it worked great until the first system update. Some dependencies in the PPA conflicted with standard ones and prevented automatic updates. I don't even remember the details. I figured I'd use the old version instead of fighting with dependencies on every update.
 
-There was also a second solution with `flatpak` in the article. The installation was painless, but the editor was unusable. Flatpak runs its applications in contained environments. It is fantastic from a security perspective, but it can only read and write to specific places in the file system by default. And I expect my editor to open every file in the system. Maybe it would be possible to configure, but I wanted something working now.
+There was also a second solution using `flatpak` in the article. The installation was painless, but the editor was unusable. Flatpak runs its applications in contained environments. It is fantastic from a security perspective, but it can only read and write to specific places in the file system by default. And I expect my editor to open every file in the system. Maybe it would be possible to configure, but I wanted something working now.
 
 And then I tried Nix:
 
@@ -71,7 +71,7 @@ disown
 exit
 ```
 
-Notice two lines of shebang. Usually, it opens bash, but I want this script to run in `nix-shell` called with `-p emacs`. I start Emacs GUI in the background and call `disown` so closing the shell does not kill the Emacs GUI and exit the nix-shell. It is my way of running GUI tools with `nix`.
+Notice two lines of shebang. Usually, it tells the script to use bash as an interpreter, but I want this script to run in `nix-shell` called with `-p emacs`. I start Emacs GUI in the background and call `disown` so closing the shell does not kill the Emacs GUI and exit the nix-shell. It is my current way of running GUI tools with `nix`.
 
 ## Summary
 
