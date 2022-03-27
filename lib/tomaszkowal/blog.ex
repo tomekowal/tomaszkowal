@@ -5,6 +5,7 @@ defmodule Tomaszkowal.Blog do
     build: Post,
     from: Application.app_dir(:tomaszkowal, "priv/posts/**/*.md"),
     as: :posts,
+    earmark_options: %Earmark.Options{postprocessor: &Post.postprocess/1},
     highlighters: [:makeup_elixir, :makeup_erlang]
 
   # The @posts variable is first defined by NimblePublisher.
