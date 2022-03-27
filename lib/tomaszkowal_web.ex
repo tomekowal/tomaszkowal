@@ -16,6 +16,7 @@ defmodule TomaszkowalWeb do
   below. Instead, define any helper function in modules
   and import those modules here.
   """
+  use Boundary, deps: [Tomaszkowal], exports: [Endpoint]
 
   def controller do
     quote do

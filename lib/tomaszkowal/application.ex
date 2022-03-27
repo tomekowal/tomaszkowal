@@ -4,6 +4,7 @@ defmodule Tomaszkowal.Application do
   @moduledoc false
 
   use Application
+  use Boundary, top_level?: true, deps: [Tomaszkowal, TomaszkowalWeb]
 
   @impl true
   def start(_type, _args) do

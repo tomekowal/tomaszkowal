@@ -7,7 +7,7 @@ defmodule Tomaszkowal.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: [:boundary, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -52,7 +52,9 @@ defmodule Tomaszkowal.MixProject do
       # nimble_publisher with its deps
       {:nimble_publisher, "~> 0.1.2"},
       {:makeup_elixir, ">= 0.0.0"},
-      {:makeup_erlang, ">= 0.0.0"}
+      {:makeup_erlang, ">= 0.0.0"},
+      # boundary
+      {:boundary, "~> 0.9", runtime: false}
     ]
   end
 
