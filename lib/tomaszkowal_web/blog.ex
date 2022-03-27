@@ -1,11 +1,24 @@
-defmodule Tomaszkowal.Blog do
+defmodule TomaszkowalWeb.Blog do
+  @moduledoc """
+  The blogging platform made according to [Dashbit's blog post](https://dashbit.co/blog/welcome-to-our-blog-how-it-was-made)
+
+  It was intentionally moved to "web layer" because of CSS.
+  The full HTML is compiled by NimblePublisher.
+  Since I experiment with Tailwind, I wanted to add CSS classes to the HTML source.
+  I wanted to keep CSS stuff in web and there is no way of doing dependency injection at compile time.
+
+  The epiphany was that I can keep `Post` in the core because it is pure data
+  but the module defining `NimblePublisher` needs to be in "web layer".
+
+  And it makes sense, since it deals with HTML.
+  """
   alias Tomaszkowal.Blog.Post
 
   use NimblePublisher,
     build: Post,
     from: Application.app_dir(:tomaszkowal, "priv/posts/**/*.md"),
     as: :posts,
-    earmark_options: %Earmark.Options{postprocessor: &Post.postprocess/1},
+    earmark_options: %Earmark.Options{postprocessor: &TomaszkowalWeb.BlogView.postprocess/1},
     highlighters: [:makeup_elixir, :makeup_erlang]
 
   # The @posts variable is first defined by NimblePublisher.

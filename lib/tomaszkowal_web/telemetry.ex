@@ -1,4 +1,8 @@
 defmodule TomaszkowalWeb.Telemetry do
+  @moduledoc """
+  Not touched after generation.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 

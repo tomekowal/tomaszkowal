@@ -1,7 +1,7 @@
 defmodule TomaszkowalWeb.BlogController do
   use TomaszkowalWeb, :controller
 
-  alias Tomaszkowal.Blog
+  alias TomaszkowalWeb.Blog
 
   def index(conn, _params) do
     render(conn, "index.html", posts: Blog.published_posts())

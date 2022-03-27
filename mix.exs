@@ -55,6 +55,7 @@ defmodule Tomaszkowal.MixProject do
       {:makeup_erlang, ">= 0.0.0"},
       # linters
       {:boundary, "~> 0.9", runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
     ]
   end
