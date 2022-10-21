@@ -103,5 +103,5 @@ I don't think so. Needs vary, and the default configuration is not surprising. H
 
 ### Credits
 
-I'd like to thank my colleague [Henrik Sjööh](https://bluecode.com/)
+I'd like to thank my colleague [Henrik Sjööh](https://www.linkedin.com/in/henriksjooh/)
 who proposed that solution during our discussions at [Bluecode](https://bluecode.com/)
