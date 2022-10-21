@@ -3,7 +3,7 @@
   description: "An alternative approach to deal with environment variables in Elixir projects",
   title: "Managing Elixir configs",
   tags: ["elixir"],
-  published: false
+  published: true
 }
 ---
 
