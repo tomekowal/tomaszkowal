@@ -3,7 +3,7 @@
   description: "A collection of best practices for `with` statements in Elixir",
   title: "Everything about `with` statement in Elixir",
   tags: ["elixir"],
-  published: false
+  published: true
 }
 ---
 
@@ -33,6 +33,12 @@ def fetch(queryable, id) do
     record -> {:ok, record}
   end
 end
+
+def edit_post(post_id, editor, title, body) d
+  with {:ok, post} <- Repo.fetch(Post, post_id),
+       :ok <- authorize(post.authorid_id == editor.id or editor.role in [:moderator, :admin]),
+       do: store_post(post, title, body)
+end
 ```
 
 You can find example usages in the article. The main idea is that small, generic helper functions improve the clarity of the `with` statement.
@@ -45,7 +51,7 @@ Chris Keathley made an excellent blog post on Elixir's best practices ["Good and
 
 ### How to provide rich errors?
 
-Chris, in his blog, wants to avoid `else` part totally, but I find it is excellent for *unifying* error handling. I wouldn't avoid it, but I would ensure it has only *one clause*.
+Chris, in his blog, wants to avoid `else` part totally, but I find it is excellent for *unifying* error handling. I wouldn't avoid it, but I would ensure it has only *one clause* for all errors.
 
 ```
   def parse_datetime(unvalidated_datetime) do
@@ -78,7 +84,8 @@ We could return the error atom and the message or, as Chris suggests in his arti
 
 The point is that both `validate/2` and `adjust_error/2` start the error handling process inside the `do` block, where we still have the entire context of failure.
 
- In pseudo-code:
+In pseudo-code:
+
 ```
 with ok_pattern <- operation |> error_handling do
 ```
@@ -91,6 +98,29 @@ It seems a little lengthy initially, but it is pretty nice to read and debug. `v
            |> adjust_error(&"Error parsing #{unvalidated_datetime}: #{inspect(&1)}")
 ```
 
+### Early return
+
+We shouldn't forget that the `with` statement is not only an error monad. In many cases, it is helpful to finish computation early even if there were no errors.
+
+```
+def delete_post(post_id) d
+  with {:ok, post} <- Repo.fetch(Post, post_id),
+       :continue <- return_early_if_deleted(post),
+       {:ok, post} <- do_delete(post),
+       :ok <- broadcast(:post_deleted, post) do
+    {:ok, post}
+  else
+    {:early_return, post} -> {:ok, post}
+    {:error, reason} -> {:error, reason}
+  end
+end
+
+def return_early_if_deleted(%Post{deleted_at: nil}), do: :continue
+def return_early_if_deleted(%Post{} = post), do: {:early_return, post}
+```
+
+The main flow is still readable and explicitly shows where it can stop and return early.
+
 ### Bonus, feel free to ignore credo
 
 Credo has a rule to rewrite a single-clause `with` statements into a `case`.
@@ -98,3 +128,38 @@ That's a great rule when teaching juniors to use the simplest solution to a prob
 
 In practice, I've found that my modules are either "pure" using mainly `|>` operator inside functions or "impure" and then using mostly `with`.
 I like to keep those functions similar for consistency, as I explained on [elixir forum](https://elixirforum.com/t/readability-of-single-clause-with-statements/52411/5?u=tomekowal)
+
+In the following module, credo would like to refactor the `c` function into a `case` statement.
+
+```
+defmodule A do
+  def a do
+    with {:ok, a} <- do_a(),
+      {:ok, b} <- do_b() do
+      {:ok, b}
+    end
+  end
+
+  def b do
+    with {:ok, c} <- do_c(),
+      {:ok, d} <- do_d() do
+      {:ok, d}
+    end
+  end
+
+  def c do
+    with {:ok, e} <- do_e() do
+      {:ok, e}
+    end
+  end
+end
+```
+
+### Summary
+
+To sum up:
+- the `with` statement is excellent at glueing computations
+- *with chaining* requires defining some helper functions, but it pays off with increased clarity
+- it is ok to handle errors inside the `with ... do` block `with ok_pattern <- operation |> error_handling do` to keep the `else` part lean
+- the main benefit of using the `with` statement is jumping out of the pipeline early - not only in an error case
+- `with` statements are complex enough that they deserve to be the only statement in a function
