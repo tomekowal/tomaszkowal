@@ -12,6 +12,7 @@ processes = []
 [env]
   PHX_HOST = "tomaszkowal.fly.dev"
   PORT = "8080"
+  CANONICAL_HOST="www.tomaszkowal.com"
 
 [experimental]
   allowed_public_ports = []
@@ -32,6 +33,7 @@ processes = []
   [[services.ports]]
     handlers = ["http"]
     port = 80
+    force_https = true
 
   [[services.ports]]
     handlers = ["tls", "http"]
