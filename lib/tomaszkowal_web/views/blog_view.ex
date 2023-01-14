@@ -2,7 +2,7 @@ defmodule TomaszkowalWeb.BlogView do
   use TomaszkowalWeb, :view
 
   def color_tags(tags) do
-    (for tag <- tags, do: color_tag(tag))
+    for(tag <- tags, do: color_tag(tag))
     |> Enum.join()
     |> raw()
   end

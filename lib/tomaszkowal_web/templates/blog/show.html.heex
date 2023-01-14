@@ -1,4 +1,4 @@
-<%= link "← All posts", to: Routes.blog_path(@conn, :index)%>
+<%= link("← All posts", to: Routes.blog_path(@conn, :index)) %>
 
 <h1><%= @post.title %></h1>
 
@@ -10,4 +10,4 @@
   Tagged as <%= color_tags(@post.tags) %>
 </p>
 
-<%= raw @post.body %>
+<%= raw(@post.body) %>

@@ -34,7 +34,7 @@ defmodule TomaszkowalWeb.Blog do
 
   def all_tags, do: @tags
 
-  defmodule NotFoundError, do: defexception [:message, plug_status: 404]
+  defmodule NotFoundError, do: defexception([:message, plug_status: 404])
 
   def get_post_by_id!(id) do
     Enum.find(all_posts(), &(&1.id == id)) ||
