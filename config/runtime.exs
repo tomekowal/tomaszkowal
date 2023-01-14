@@ -12,6 +12,9 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :tomaszkowal, TomaszkowalWeb.Endpoint, server: true
 end
 
+config :tomaszkowal,
+  canonical_host: System.get_env("CANONICAL_HOST")
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

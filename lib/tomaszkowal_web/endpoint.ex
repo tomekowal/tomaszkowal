@@ -12,6 +12,8 @@ defmodule TomaszkowalWeb.Endpoint do
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
+  plug(:canonical_host)
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
@@ -47,4 +49,17 @@ defmodule TomaszkowalWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug TomaszkowalWeb.Router
+
+  defp canonical_host(conn, _opts) do
+    :tomaszkowal
+    |> Application.get_env(:canonical_host)
+    |> case do
+         host when is_binary(host) ->
+           opts = PlugCanonicalHost.init(canonical_host: host)
+           PlugCanonicalHost.call(conn, opts)
+
+         _ ->
+           conn
+       end
+  end
 end
