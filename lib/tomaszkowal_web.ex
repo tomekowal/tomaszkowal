@@ -18,13 +18,16 @@ defmodule TomaszkowalWeb do
   """
   use Boundary, deps: [Tomaszkowal], exports: [Endpoint]
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: TomaszkowalWeb
 
       import Plug.Conn
       import TomaszkowalWeb.Gettext
-      alias TomaszkowalWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -40,6 +43,16 @@ defmodule TomaszkowalWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: TomaszkowalWeb.Endpoint,
+        router: TomaszkowalWeb.Router,
+        statics: TomaszkowalWeb.static_paths()
     end
   end
 
@@ -85,6 +98,7 @@ defmodule TomaszkowalWeb do
     end
   end
 
+  # TODO: up for removal
   defp view_helpers do
     quote do
       # Use all HTML functionality (forms, tags, etc)
