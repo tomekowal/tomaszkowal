@@ -1,3 +1,3 @@
 defmodule TomaszkowalWeb.PageView do
-  use TomaszkowalWeb, :view
+  use TomaszkowalWeb, :html
 end

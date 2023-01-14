@@ -1,5 +1,7 @@
 defmodule TomaszkowalWeb.BlogView do
-  use TomaszkowalWeb, :view
+  use TomaszkowalWeb, :html
+
+  embed_templates "blog_html/*"
 
   def color_tags(tags) do
     for(tag <- tags, do: color_tag(tag))
