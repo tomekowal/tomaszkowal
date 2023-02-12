@@ -3,12 +3,15 @@ defmodule TomaszkowalWeb.BlogView do
 
   def color_tags(tags) do
     (for tag <- tags, do: color_tag(tag))
-    |> Enum.join()
+    |> Enum.join(" ")
     |> raw()
   end
 
   # I like Notion colors https://optemization.com/notion-color-guide
-  defp color_tag("nix"), do: "<span style=\"background: #DDEBF1\">nix</span>"
+  defp color_tag("nix"), do: "<span style=\"background: #DDEBF1;\">nix</span>"
+  defp color_tag("elixir"), do: "<span style=\"background: #6A4b79; color: #eee;\">elixir</span>"
+  defp color_tag("phoenix"), do: "<span style=\"background: #FF6F61; color: #eee\">phoenix</span>"
+  defp color_tag("liveview"), do: "<span style=\"background: #FF6F61; color: #eee\">liveview</span>"
   defp color_tag(other), do: "<span style=\"background: #EBECED\">#{other}</span>"
 
   # add anchors to allow linking to subheaders
