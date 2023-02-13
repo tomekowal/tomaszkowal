@@ -3,7 +3,7 @@
   description: "Team velocity observations from ten years of experience working in startups and consultancies",
   title: "How to reduce software impedance mismatch?",
   tags: ["elixir", "phoenix", "liveview"],
-  published: false
+  published: true
 }
 ---
 
