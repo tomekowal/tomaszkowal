@@ -3,8 +3,12 @@ defmodule TomaszkowalWeb.BlogController do
 
   alias TomaszkowalWeb.Blog
 
+  def index(conn, %{"tag" => tag}) do
+    render(conn, "index.html", posts: Blog.get_posts_by_tag!(tag), tags: Blog.all_tags())
+  end
+
   def index(conn, _params) do
-    render(conn, "index.html", posts: Blog.published_posts())
+    render(conn, "index.html", posts: Blog.published_posts(), tags: Blog.all_tags())
   end
 
   def show(conn, %{"id" => id}) do
