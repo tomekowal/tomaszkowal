@@ -16,7 +16,7 @@ Recently I've found a bug that caused 500 HTTP errors instead of 400 on missing 
 
 I dug into it and found that we passed `nil` somewhere deep down the stack where we expected a string value. But the actual problem was much higher in the controller:
 
-```
+```elixir
 field = Map.get(params, "field")
 Conext.do_stuff(..., field, ...)
 ```

@@ -16,7 +16,7 @@ Let's say we want to detect all occurrences of `Map.get/2` in our credo check an
 
 The `Credo.Code.prewalk` function works exactly like `Macro.prewalk/3` with reordered arguments. The spec of `traverse` function looks like this:
 
-```
+```elixir
 traverse(ast, accumulator) :: {new_ast, new_accumulator}
 ```
 
@@ -63,7 +63,7 @@ defp traverse(
 That works with direct invocations of `Map.get(map, key)`, but it won't catch `map |> Map.get(key)`.
 Let's inspect the AST.
 
-```
+```elixir
 iex(2)> quote do map |> Map.get(key) end
 {:|>, [context: Elixir, import: Kernel],
  [
@@ -107,7 +107,7 @@ The pipe operator is right-associative, and pipes are nested in reverse order. T
 
 Let's match that in two steps:
 
-```
+```elixir
   defp traverse({:|>, pipe_meta, [before_pipe, after_pipe]}, ...) do
     case after_pipe do
       {{:., dot_meta, [{:__aliases__, module_meta, [:Map]}, :get]}, function_meta, params} when length(params) == 1 ->

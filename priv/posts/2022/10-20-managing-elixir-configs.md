@@ -73,7 +73,7 @@ With this, you can remove the nasty `if config_env() == :prod`. However, our tes
 
 ### Part2 of the solution - ConfigHelper
 
-```
+```elixir
 def fetch_env!(var) do
   value =
     with :test <- config_env(),

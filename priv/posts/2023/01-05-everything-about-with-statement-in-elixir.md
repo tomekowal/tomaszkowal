@@ -21,7 +21,7 @@ Saša Jurić wrote a fantastic series of blog posts titled "Towards Maintainable
 
 He introduces some helper functions that make using `with` super-readable.
 
-```
+```elixir
 def validate(true, _error_reason), do: :ok
 def validate(false, error_reason), do: {:error_reason}
 
@@ -53,7 +53,7 @@ Chris Keathley made an excellent blog post on Elixir's best practices ["Good and
 
 Chris, in his blog, wants to avoid `else` part totally, but I find it is excellent for *unifying* error handling. I wouldn't avoid it, but I would ensure it has only *one clause* for all errors.
 
-```
+```elixir
   def parse_datetime(unvalidated_datetime) do
     with :ok <-
            validate(
@@ -86,13 +86,13 @@ The point is that both `validate/2` and `adjust_error/2` start the error handlin
 
 In pseudo-code:
 
-```
+```elixir
 with ok_pattern <- operation |> error_handling do
 ```
 
 It seems a little lengthy initially, but it is pretty nice to read and debug. `validate/2` reads like English prose and piping is not intrusive when it is in a separate line:
 
-```
+```elixir
          {:ok, date_time, _} <-
            DateTime.from_iso8601(unvalidated_datetime)
            |> adjust_error(&"Error parsing #{unvalidated_datetime}: #{inspect(&1)}")
@@ -102,7 +102,7 @@ It seems a little lengthy initially, but it is pretty nice to read and debug. `v
 
 We shouldn't forget that the `with` statement is not only an error monad. In many cases, it is helpful to finish computation early even if there were no errors.
 
-```
+```elixir
 def delete_post(post_id) d
   with {:ok, post} <- Repo.fetch(Post, post_id),
        :continue <- return_early_if_deleted(post),
@@ -131,7 +131,7 @@ I like to keep those functions similar for consistency, as I explained on [elixi
 
 In the following module, credo would like to refactor the `c` function into a `case` statement.
 
-```
+```elixir
 defmodule A do
   def a do
     with {:ok, a} <- do_a(),
