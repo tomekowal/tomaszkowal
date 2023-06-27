@@ -18,6 +18,8 @@ defmodule TomaszkowalWeb do
   """
   use Boundary, deps: [Tomaszkowal], exports: [Endpoint]
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: TomaszkowalWeb
@@ -25,6 +27,8 @@ defmodule TomaszkowalWeb do
       import Plug.Conn
       import TomaszkowalWeb.Gettext
       alias TomaszkowalWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
     end
   end
 
@@ -43,6 +47,7 @@ defmodule TomaszkowalWeb do
     end
   end
 
+  @spec live_view :: {:__block__, [], [{:__block__, [], [...]} | {:use, [...], [...]}, ...]}
   def live_view do
     quote do
       use Phoenix.LiveView,
@@ -99,6 +104,17 @@ defmodule TomaszkowalWeb do
       import TomaszkowalWeb.ErrorHelpers
       import TomaszkowalWeb.Gettext
       alias TomaszkowalWeb.Router.Helpers, as: Routes
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: TomaszkowalWeb.Endpoint,
+        router: TomaszkowalWeb.Router,
+        statics: TomaszkowalWeb.static_paths()
     end
   end
 

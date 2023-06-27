@@ -28,6 +28,8 @@ defmodule TomaszkowalWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint TomaszkowalWeb.Endpoint
+
+      use TomaszkowalWeb, :verified_routes
     end
   end
 

@@ -22,7 +22,7 @@ defmodule TomaszkowalWeb.Endpoint do
     at: "/",
     from: :tomaszkowal,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: TomaszkowalWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
