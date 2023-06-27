@@ -32,3 +32,4 @@ tomaszkowal-*.tar
 npm-debug.log
 /assets/node_modules/
 
+/priv/static
