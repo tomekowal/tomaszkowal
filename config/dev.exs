@@ -6,6 +6,7 @@ config :tomaszkowal, Tomaszkowal.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "tomaszkowal_dev",
+  stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -13,8 +14,8 @@ config :tomaszkowal, Tomaszkowal.Repo,
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
-# watchers to your application. For example, we use it
-# with esbuild to bundle .js and .css sources.
+# watchers to your application. For example, we can use it
+# to bundle .js and .css sources.
 config :tomaszkowal, TomaszkowalWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
@@ -24,8 +25,8 @@ config :tomaszkowal, TomaszkowalWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "Hts3jKDuJ+1afgke9LoMht8ohBKl/3iWj+v9jwAsJ3ZJlgvRTwSmMkiROsGS9VJu",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -36,7 +37,6 @@ config :tomaszkowal, TomaszkowalWeb.Endpoint,
 #
 #     mix phx.gen.cert
 #
-# Note that this task requires Erlang/OTP 20 or later.
 # Run `mix help phx.gen.cert` for more information.
 #
 # The `http:` config above can be replaced with:
@@ -58,11 +58,12 @@ config :tomaszkowal, TomaszkowalWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/tomaszkowal_web/(live|views)/.*(ex)$",
-      ~r"lib/tomaszkowal_web/templates/.*(eex)$",
-      ~r"posts/*/.*(md)$"
+      ~r"lib/tomaszkowal_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
+
+# Enable dev routes for dashboard and mailbox
+config :tomaszkowal, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
@@ -73,3 +74,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Disable swoosh api client as it is only required for production adapters.
+config :swoosh, :api_client, false
