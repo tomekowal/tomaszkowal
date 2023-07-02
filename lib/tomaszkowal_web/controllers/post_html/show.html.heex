@@ -1,4 +1,4 @@
-<%= link "← All posts", to: Routes.blog_path(@conn, :index)%>
+<.back navigate={~p"/"}>"← All posts"</.back>
 
 <h1><%= @post.title %></h1>
 
@@ -7,7 +7,7 @@
 </p>
 
 <p>
-  <%= color_tags(@post.tags) %>
+  <%= raw(color_tags(@post.tags)) %>
 </p>
 
 <%= raw @post.body %>

@@ -1,11 +1,11 @@
-<%= color_tags(@tags) %>
+<%= raw(color_tags(@tags)) %>
 
 <%= for post <- @posts do %>
   <hr/>
   <div id={post.id} style="margin-bottom: 3rem;">
-    <h2><%= link post.title, to: Routes.blog_path(@conn, :show, post)%></h2>
+    <h2><.link href={~p"/posts/#{post}"}><%= post.title %></.link></h2>
     <time><%= post.date %></time> <%= author(post.author) %><br/>
-    <%= color_tags(post.tags) %><br/>
+    <%= raw(color_tags(post.tags)) %><br/>
     <%= raw post.description %>
   </div>
 <% end %>

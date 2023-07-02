@@ -1,5 +1,5 @@
 defmodule TomaszkowalWeb.BlogView do
-  use TomaszkowalWeb, :view
+  # use TomaszkowalWeb, :view
 
   @tags %{
     "nix" => %{background: "#DDEBF1", color: "#111"},
@@ -9,9 +9,9 @@ defmodule TomaszkowalWeb.BlogView do
     "soft-skills" => %{background: "#BDF9FF", color: "#111"}
   }
 
-  def color_tags(tags) do
-    (for tag <- tags, do: [color_tag(tag), " "])
-  end
+  # def color_tags(tags) do
+  #   (for tag <- tags, do: [color_tag(tag), " "])
+  # end
 
   # I like Notion colors https://optemization.com/notion-color-guide
   # defp color_tag("nix"), do: "<a style=\"background: #DDEBF1;\" href=\"?tag=nix\">nix</a>"
@@ -19,7 +19,7 @@ defmodule TomaszkowalWeb.BlogView do
   # defp color_tag("phoenix"), do: "<a style=\"background: #FF6F61; color: #eee\">phoenix</a>"
   # defp color_tag("liveview"), do: "<a style=\"background: #FF6F61; color: #eee\">liveview</a>"
   # defp color_tag("soft-skills"), do: "<a style=\"background: #BDF9FF; color: #111\">soft-skills</a>"
-  defp color_tag(tag), do: link(tag, to: "?tag=#{tag}", style: "background: #{@tags[tag].background}; color: #{@tags[tag].color}")
+  # defp color_tag(tag), do: link(tag, to: "?tag=#{tag}", style: "background: #{@tags[tag].background}; color: #{@tags[tag].color}")
 
   # add anchors to allow linking to subheaders
   def postprocess({h, [], [text], %{}}) when h in ["h1", "h2", "h3", "h4", "h5", "h6"] do
