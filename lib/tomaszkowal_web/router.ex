@@ -19,6 +19,7 @@ defmodule TomaszkowalWeb.Router do
 
     get "/", BlogController, :index
     get "/blog/:id", BlogController, :show
+    get "/keybase.txt", KeybaseController, :show
   end
 
   # Other scopes may use custom stacks.
